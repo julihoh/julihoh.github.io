@@ -4,7 +4,7 @@ title:  "GSoC 21 Final Report: Concolic Tracing for LibAFL"
 date:   2021-08-19 18:15:46 +0200
 categories: 
 ---
-This year (2021) I got the chance to add support for *concolic tracing* to the exciting and new [LibAFL fuzzing framework](https://github.com/AFLplusplus/LibAFL) as part of the great [Google Summer of Code](https://summerofcode.withgoogle.com) program.
+This year I got the chance to add support for *concolic tracing* to the exciting and new [LibAFL fuzzing framework](https://github.com/AFLplusplus/LibAFL) as part of the great [Google Summer of Code](https://summerofcode.withgoogle.com) program.
 This final report outlines the work I did during the last 10 weeks and gives an overview over the state of the project.
 
 ## Brief
@@ -17,7 +17,7 @@ The work includes, on a technical level:
 
 * [A new runtime](https://github.com/AFLplusplus/symcc/tree/main/runtime/rust_backend#readme) for SymCC and SymQEMU that facilitates the creation of new runtimes in languages other than C++ as part of the aforementioned fork of SymCC. Upstreaming of this new runtime is [in progress](https://github.com/eurecom-s3/symcc/pull/69).
 * [Rust bindings](https://docs.rs/symcc_runtime) for the SymCC/SymQEMU [runtime interface](https://github.com/eurecom-s3/symcc/blob/master/runtime/RuntimeCommon.h) to facilitate the creation of SymCC/SymQEMU based concolic tracers in [Rust](https://www.rust-lang.org), the programming language of LibAFL.
-* A library for building concolic tracers that are reusable and [compose well](https://docs.rs/symcc_runtime/0.1.0/symcc_runtime/macro.export_runtime.html), [including components](https://docs.rs/symcc_runtime/0.1.0/symcc_runtime/filter/index.html) to aid in the creation of new runtimes.
+* A library for building concolic tracers that are reusable and [compose well](https://docs.rs/symcc_runtime/0.1/symcc_runtime/macro.export_runtime.html), [including components](https://docs.rs/symcc_runtime/0.1/symcc_runtime/filter/index.html) to aid in the creation of new runtimes.
 * [A helper library](https://docs.rs/symcc_libafl) for using the SymCC instrumenting compiler from Cargo build scripts, as is common in LibAFL-based fuzzers.
 * Support for [efficiently transferring](https://docs.rs/libafl/0.6.0/libafl/observers/concolic/serialization_format/index.html) concolic tracing expressions from the target program to a LibAFL-based fuzzer via shared memory [as part of the main LibAFL crate](https://docs.rs/libafl/0.6.0/libafl/observers/concolic/index.html).
 * [A simple LibAFL Mutational Stage](https://docs.rs/libafl/0.6.0//libafl/stages/concolic/struct.SimpleConcolicMutationalStage.html) that uses concolic traces to increase coverage in the target program, similar to [SymCC's 'Simple' runtime](https://github.com/eurecom-s3/symcc/blob/master/docs/Backends.txt).
