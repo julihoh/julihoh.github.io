@@ -92,4 +92,8 @@ In case the query is satisfiable, a model is computed, which represents the muta
 The goal should be to provide a simplistic implementation that can serve as an example to build more realistic approaches and to validate the correct functioning of the observer.
 
 
+## Current State
+As mentioned before, I managed to reach all goals that I set in my proposal and I would even argue exceeded them:
+The concolic tracing component is much more flexible than I had planned to make it, allowing for a broader range of applications.
+Additionally, I also managed to provide an example of the how concolic tracing can be used in LibAFL-based fuzzer and created continious integration tests that should ensure the longterm quality of the implementation.
 
