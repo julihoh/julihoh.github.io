@@ -10,7 +10,7 @@ This final report outlines the work I did during the last 10 weeks and gives an 
 ## Brief
 
 I integrated [SymCC](https://github.com/eurecom-s3/symcc) and [SymQEMU](https://github.com/eurecom-s3/symqemu), two concolic tracing tools, which enables users of the LibAFL fuzzing framework to easily enhance their fuzzer with techniques based on concolic tracing.
-Concolic tracing/execution is a rather specialized technique in the space of fuzzing that enables more directed and 'analytic' control over the target execution by applying ideas from Symbolic Execution.
+Concolic tracing/execution is a rather specialized technique in the space of fuzzing that enables more directed and 'analytic' control over the target execution by applying ideas from [Symbolic Execution](https://en.wikipedia.org/wiki/Symbolic_execution).
 
 The complete project was implemented in [several pull requests](https://github.com/AFLplusplus/LibAFL/pulls?q=is%3Apr+author%3Ajulihoh+) to the main LibAFL repository and a [separate fork](https://github.com/AFLplusplus/symcc) of SymCC under the AFLplusplus organisation.
 The work includes, on a technical level:
