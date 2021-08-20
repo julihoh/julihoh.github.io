@@ -97,3 +97,24 @@ As mentioned before, I managed to reach all goals that I set in my proposal and 
 The concolic tracing component is much more flexible than I had planned to make it, allowing for a broader range of applications.
 Additionally, I also managed to provide an example of the how concolic tracing can be used in LibAFL-based fuzzer and created continious integration tests that should ensure the longterm quality of the implementation.
 
+## Future Work
+The current state of the project is already usable and it will be exciting to see how people will be able to make use of concolic tracing with LibAFL.
+The following outlines some ideas for extending the project in the future:
+### Support for more Instrumentation Tools
+From a user's perspective, however, there are still some barriers to entry when it comes to actually instrumenting their particular target:
+Instrumenting a target requires either using SymCC as an instrumenting compiler or SymQEMU for binary-only scenarios.
+Both of these options are lacking in different ways:
+
+* SymCC is a clang compiler plugin is inherently difficult to build (especially on non-linux targets).
+* SymCC requires source and, perhaps more importantly, needs to be able to build the target. This tends to always be more difficult than anticipated.
+* Both SymCC and SymQEMU need to built from source. Binary packages for popular operating systems are not available.
+* While SymQEMU may be able to target many interesting targets (eg. non-x86, non-linux, embedded, etc.), it currently only supports x86 linux userspace emulation and tracing.
+
+Therefore, it would be interesting to see more instrumentation tools supported, such as [frida](https://frida.re) or [Triton](https://triton.quarkslab.com), which may be easier to set up.
+
+### Better Solving
+Concolic tracing always involves some sort of solving of constraints to make use of the concolic trace.
+This is an active field of research ranging from effective filtering of constraint all the way to implementing specialized SMT-solvers.
+The current state of the project already contains some filtering based on [QSym hybrid fuzzer](https://github.com/sslab-gatech/qsym), but it would be interesting to see whether more of the work in academia could be made usable by a wider range of users through LibAFL.
+In general, the currently implemented solver is not very effective without tuning to particular targets.
+
