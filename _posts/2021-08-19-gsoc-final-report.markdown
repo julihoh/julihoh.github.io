@@ -4,29 +4,26 @@ title:  "GSoC 21 Final Report: Concolic Tracing for LibAFL"
 date:   2021-08-19 18:15:46 +0200
 categories: 
 ---
-This year I got the chance to add support for *concolic tracing* to the exciting and new [LibAFL fuzzing framework](https://github.com/AFLplusplus/LibAFL) as part of the great [Google Summer of Code](https://summerofcode.withgoogle.com) program.
-This final report outlines the work I did during the last 10 weeks and gives an overview over the state of the project.
+This year I had the chance to add support for *concolic tracing* to the exciting and new [LibAFL fuzzing framework](https://github.com/AFLplusplus/LibAFL) as part of the great [Google Summer of Code](https://summerofcode.withgoogle.com) program.
+This final report outlines my work from the last 10 weeks and gives an overview over the state of the project.
 
 ## Brief
-
 I integrated [SymCC](https://github.com/eurecom-s3/symcc) and [SymQEMU](https://github.com/eurecom-s3/symqemu), two concolic tracing tools, which enables users of the LibAFL fuzzing framework to easily enhance their fuzzer with techniques based on concolic tracing.
 Concolic tracing/execution is a rather specialized technique in the space of fuzzing that enables more directed and 'analytic' control over the target execution by applying ideas from [Symbolic Execution](https://en.wikipedia.org/wiki/Symbolic_execution).
 
-The complete project was implemented in [several pull requests](https://github.com/AFLplusplus/LibAFL/pulls?q=is%3Apr+author%3Ajulihoh+) to the main LibAFL repository and a [separate fork](https://github.com/AFLplusplus/symcc) of SymCC under the AFLplusplus organization.
-The work includes, on a technical level:
+The complete project was implemented across [several pull requests](https://github.com/AFLplusplus/LibAFL/pulls?q=is%3Apr+author%3Ajulihoh+) to the main LibAFL repository and a [separate fork](https://github.com/AFLplusplus/symcc) of SymCC under the AFLplusplus organization.
+On a technical level this includes:
 
 * [A new runtime](https://github.com/AFLplusplus/symcc/tree/main/runtime/rust_backend#readme) for SymCC and SymQEMU that facilitates the creation of new runtimes in languages other than C++ as part of the aforementioned fork of SymCC. Upstreaming of this new runtime is [in progress](https://github.com/eurecom-s3/symcc/pull/69).
 * [Rust bindings](https://docs.rs/symcc_runtime) for the SymCC/SymQEMU [runtime interface](https://github.com/eurecom-s3/symcc/blob/master/runtime/RuntimeCommon.h) to facilitate the creation of SymCC/SymQEMU based concolic tracers in [Rust](https://www.rust-lang.org), the programming language of LibAFL.
-* A library for building concolic tracers that are reusable and [compose well](https://docs.rs/symcc_runtime/0.1/symcc_runtime/macro.export_runtime.html), [including components](https://docs.rs/symcc_runtime/0.1/symcc_runtime/filter/index.html) to aid in the creation of new runtimes.
+* A library for building concolic tracers that are reusable and [compose well](https://docs.rs/symcc_runtime/0.1/symcc_runtime/macro.export_runtime.html), [including components](https://docs.rs/symcc_runtime/0.1/symcc_runtime/filter/index.html) that support the creation of entirely new runtimes.
 * [A helper library](https://docs.rs/symcc_libafl) for using the SymCC instrumenting compiler from Cargo build scripts, as is common in LibAFL-based fuzzers.
 * Support for [efficiently transferring](https://docs.rs/libafl/0.6.0/libafl/observers/concolic/serialization_format/index.html) concolic tracing expressions from the target program to a LibAFL-based fuzzer via shared memory [as part of the main LibAFL crate](https://docs.rs/libafl/0.6.0/libafl/observers/concolic/index.html).
 * [A simple LibAFL Mutational Stage](https://docs.rs/libafl/0.6.0//libafl/stages/concolic/struct.SimpleConcolicMutationalStage.html) that uses concolic traces to increase coverage in the target program, similar to [SymCC's 'Simple' runtime](https://github.com/eurecom-s3/symcc/blob/master/docs/Backends.txt).
 * [A very basic hybrid fuzzer](https://github.com/AFLplusplus/LibAFL/tree/main/fuzzers/libfuzzer_stb_image_concolic#readme) based on LibAFL that uses all of the components from this project.
-* [A smoke test](https://github.com/AFLplusplus/LibAFL/tree/main/libafl_concolic/test#readme) that ensure that the integration between SymCC and LibAFL works properly that [runs on CI](https://github.com/AFLplusplus/LibAFL/runs/3359607830?check_suite_focus=true#step:6:1).
+* [A smoke test](https://github.com/AFLplusplus/LibAFL/tree/main/libafl_concolic/test#readme) that ensures that the integration between SymCC and LibAFL works properly which also [runs on CI](https://github.com/AFLplusplus/LibAFL/runs/3359607830?check_suite_focus=true#step:6:1).
 * [A new chapter](https://aflplus.plus/libafl-book/advanced_features/concolic/concolic.html) in the [LibAFL book](https://aflplus.plus/libafl-book/) that introduces this project's work to LibAFL users.
 * All code is thoroughly documented and documentation is available via [docs.rs](https://docs.rs).
-
-Perhaps surprisingly, all initial goals were met (and exceeded) and, so far, there is no outstanding/future work planned.
 
 ## Goals
 
@@ -93,54 +90,54 @@ The goal should be to provide a simplistic implementation that can serve as an e
 
 
 ## Current State
-As mentioned before, I managed to reach all goals that I set in my proposal and I would even argue exceeded them:
+I managed to reach all the goals I set in my proposal and in some aspects went beyond what I had set out to do:
 The concolic tracing component is much more flexible than I had planned to make it, allowing for a broader range of applications.
-Additionally, I also managed to provide an example of the how concolic tracing can be used in LibAFL-based fuzzer and created continuous integration tests that should ensure the longterm quality of the implementation.
+Additionally, I also managed to provide an example of how concolic tracing can be used in LibAFL-based fuzzers and created continuous integration tests that should ensure the long-term quality of the implementation.
 
 ## Future Work
-The current state of the project is already usable and it will be exciting to see how people will be able to make use of concolic tracing with LibAFL.
-The following outlines some ideas for extending the project in the future:
+The project in its current state is already usable and it will be exciting to see how people will be able to make use of concolic tracing with LibAFL.
+The following sections outline some ideas for extending the project in the future:
 
 ### Support for more Instrumentation Tools
-From a user's perspective, however, there are still some barriers to entry when it comes to actually instrumenting their particular target:
+From a user's perspective, however, there are still some barriers when it comes to actually instrumenting their particular target:
 Instrumenting a target requires either using SymCC as an instrumenting compiler or SymQEMU for binary-only scenarios.
 Both of these options are lacking in different ways:
 
-* SymCC is a clang compiler plugin is inherently difficult to build (especially on non-linux targets).
-* SymCC requires source and, perhaps more importantly, needs to be able to build the target. This tends to always be more difficult than anticipated.
-* Both SymCC and SymQEMU need to built from source. Binary packages for popular operating systems are not available.
-* While SymQEMU may be able to target many interesting targets (eg. non-x86, non-linux, embedded, etc.), it currently only supports x86 linux userspace emulation and tracing.
+* SymCC is a clang compiler plugin and is therefore inherently difficult to build (especially on non-linux targets).
+* SymCC requires source and perhaps more importantly needs to be able to build the target. This usually tends to be more difficult than anticipated.
+* Both SymCC and SymQEMU need to be built from source. Binary packages for popular operating systems are not available.
+* While SymQEMU may in principle support many interesting targets (eg. non-x86, non-linux, embedded, etc.), it currently only supports x86 linux userspace tracing.
 
 Therefore, it would be interesting to see more instrumentation tools supported, such as [frida](https://frida.re) or [Triton](https://triton.quarkslab.com), which may be easier to set up.
 
 ### Better Solving
 Concolic tracing always involves some sort of solving of constraints to make use of the concolic trace.
-This is an active field of research ranging from effective filtering of constraint all the way to implementing specialized SMT-solvers.
+This is an active field of research which ranges from effective filtering of constraints all the way to implementing specialized SMT-solvers.
 The current state of the project already contains some filtering based on [QSym hybrid fuzzer](https://github.com/sslab-gatech/qsym), but it would be interesting to see whether more of the work in academia could be made usable by a wider range of users through LibAFL.
-In general, the currently implemented solver is not very effective without tuning to particular targets.
+In general, the currently implemented solver is not very effective without being tuned to particular targets.
 
 ### Documentation of Learnings
-During the project, I had some findings that could be interesting for others. 
-These findings should be documented somehow.
-Here is a brief overview of what I think these findings are:
+During the project, I came across some issues that might be relevant for others.
+I would like to document these findings for future reference.
+Here is a brief overview of these findings:
 
 * I managed to find a low-maintenance solution for re-exporting symbols from a C library in a Rust shared library (see [#2771](https://github.com/rust-lang/rfcs/issues/2771)).
-It is [rather complicated](https://github.com/AFLplusplus/LibAFL/blob/main/libafl_concolic/symcc_runtime/build.rs), but it worked nicely for integrating SymCC's runtime.
+It is [rather complicated](https://github.com/AFLplusplus/LibAFL/blob/main/libafl_concolic/symcc_runtime/build.rs), but works nicely for integrating SymCC's runtime.
 Beware: it contains regular expressions to parse Rust code which is used to generate a C header on the fly to rename symbols and generates Rust macros that are used in the library to generate even more Rust code.
-* The library can serialize expressions in a an LLVM IR-like language quite efficiently and the resulting organization of concolic tracers (especially regarding composability) is, in my humble opinion, profound and elegant.
+* The library can serialize expressions in a an LLVM IR-like language quite efficiently and the resulting organization of concolic tracers (especially regarding composability) is, in my opinion, quite profound and elegant.
 I attempted to document the basic technical decisions and design in the [module documentation](https://docs.rs/libafl/0.6/libafl/observers/concolic/serialization_format/index.html), but I think a more long-form blog post would be in order.
 
 ## Personal Conclusion
 I am very happy with how this GSoC project turned out.
-If I had to come up with some learnings from this whole project for me personally, it would be the following:
+The things I learned during the project are:
 
-* Communicate early and clearly. Sometimes, just formulating a problem for a discord message or github issue leads to the solution.
+* Communicate early and clearly. Sometimes just formulating a problem for a discord message or github issue leads to the solution.
 * Automated (integration) tests are key to solving difficult problems:
-the ability to continuously verify everything still works as expected enabled sweeping refactors that ultimately pushed this project from good to great (IMHO).
-* Documentation is not a nice-to-have, but a requirement. Documentation is also for the writer, not just the reader.
+the ability to continuously verify that everything still works as expected enabled sweeping refactors that ultimately pushed this project from good to great (IMHO).
+* Documentation is not nice-to-have, but a basic requirement. Documentation is also for the writer, not just the reader.
 For me personally, it uncovered rough edges and code that I had simply forgotten to update or remove in a previous refactor. 
 It makes it (sometimes painfully) obvious how (re-)usable an abstraction or piece of code _really_ is.
 
-I am very glad I had [@domenukk](https://github.com/domenukk) and [@andreafioraldi](https://github.com/andreafioraldi) mentor me.
-Working with them was refreshingly productive and they were there to support me whenever I needed them, regardless of problem difficulty.
+I am very grateful for the mentorship of [@domenukk](https://github.com/domenukk) and [@andreafioraldi](https://github.com/andreafioraldi).
+Working with them was refreshingly productive and they were there to support me whenever I needed them, regardless of the problem or its difficulty.
 Also: they are just [dufte](https://www.urbandictionary.com/define.php?term=dufte) dudes :)
