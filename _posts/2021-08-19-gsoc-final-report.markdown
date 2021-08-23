@@ -100,6 +100,7 @@ Additionally, I also managed to provide an example of the how concolic tracing c
 ## Future Work
 The current state of the project is already usable and it will be exciting to see how people will be able to make use of concolic tracing with LibAFL.
 The following outlines some ideas for extending the project in the future:
+
 ### Support for more Instrumentation Tools
 From a user's perspective, however, there are still some barriers to entry when it comes to actually instrumenting their particular target:
 Instrumenting a target requires either using SymCC as an instrumenting compiler or SymQEMU for binary-only scenarios.
