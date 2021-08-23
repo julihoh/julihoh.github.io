@@ -12,7 +12,7 @@ This final report outlines the work I did during the last 10 weeks and gives an 
 I integrated [SymCC](https://github.com/eurecom-s3/symcc) and [SymQEMU](https://github.com/eurecom-s3/symqemu), two concolic tracing tools, which enables users of the LibAFL fuzzing framework to easily enhance their fuzzer with techniques based on concolic tracing.
 Concolic tracing/execution is a rather specialized technique in the space of fuzzing that enables more directed and 'analytic' control over the target execution by applying ideas from [Symbolic Execution](https://en.wikipedia.org/wiki/Symbolic_execution).
 
-The complete project was implemented in [several pull requests](https://github.com/AFLplusplus/LibAFL/pulls?q=is%3Apr+author%3Ajulihoh+) to the main LibAFL repository and a [separate fork](https://github.com/AFLplusplus/symcc) of SymCC under the AFLplusplus organisation.
+The complete project was implemented in [several pull requests](https://github.com/AFLplusplus/LibAFL/pulls?q=is%3Apr+author%3Ajulihoh+) to the main LibAFL repository and a [separate fork](https://github.com/AFLplusplus/symcc) of SymCC under the AFLplusplus organization.
 The work includes, on a technical level:
 
 * [A new runtime](https://github.com/AFLplusplus/symcc/tree/main/runtime/rust_backend#readme) for SymCC and SymQEMU that facilitates the creation of new runtimes in languages other than C++ as part of the aforementioned fork of SymCC. Upstreaming of this new runtime is [in progress](https://github.com/eurecom-s3/symcc/pull/69).
@@ -95,7 +95,7 @@ The goal should be to provide a simplistic implementation that can serve as an e
 ## Current State
 As mentioned before, I managed to reach all goals that I set in my proposal and I would even argue exceeded them:
 The concolic tracing component is much more flexible than I had planned to make it, allowing for a broader range of applications.
-Additionally, I also managed to provide an example of the how concolic tracing can be used in LibAFL-based fuzzer and created continious integration tests that should ensure the longterm quality of the implementation.
+Additionally, I also managed to provide an example of the how concolic tracing can be used in LibAFL-based fuzzer and created continuous integration tests that should ensure the longterm quality of the implementation.
 
 ## Future Work
 The current state of the project is already usable and it will be exciting to see how people will be able to make use of concolic tracing with LibAFL.
@@ -127,7 +127,7 @@ Here is a brief overview of what I think these findings are:
 * I managed to find a low-maintenance solution for re-exporting symbols from a C library in a Rust shared library (see [#2771](https://github.com/rust-lang/rfcs/issues/2771)).
 It is [rather complicated](https://github.com/AFLplusplus/LibAFL/blob/main/libafl_concolic/symcc_runtime/build.rs), but it worked nicely for integrating SymCC's runtime.
 Beware: it contains regular expressions to parse Rust code which is used to generate a C header on the fly to rename symbols and generates Rust macros that are used in the library to generate even more Rust code.
-* The library can serialize expressions in a an LLVM IR-like language quite efficiently and the resulting organisation of concolic tracers (especially regarding composability) is, in my humble opinion, profound and elegant.
+* The library can serialize expressions in a an LLVM IR-like language quite efficiently and the resulting organization of concolic tracers (especially regarding composability) is, in my humble opinion, profound and elegant.
 I attempted to document the basic technical decisions and design in the module documentation, but I think a more long-form blog post would be in order.
 
 ## Personal Conclusion
@@ -136,7 +136,7 @@ If I had to come up with some learnings from this whole project for me personall
 
 * Communicate early and clearly. Sometimes, just formulating a problem for a discord message or github issue leads to the solution.
 * Automated (integration) tests are key to solving difficult problems:
-the ability to continously verify everything still works as expected enabled sweeping refactors that ultimately pushed this project from good to great (IMHO).
+the ability to continuously verify everything still works as expected enabled sweeping refactors that ultimately pushed this project from good to great (IMHO).
 * Documentation is not a nice-to-have, but a requirement. Documentation is also for the writer, not just the reader.
 For me personally, it uncovered rough edges and code that I had simply forgotten to update or remove in a previous refactor. 
 It makes it (sometimes painfully) obvious how (re-)usable an abstraction or piece of code _really_ is.
