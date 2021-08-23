@@ -129,3 +129,18 @@ It is [rather complicated](https://github.com/AFLplusplus/LibAFL/blob/main/libaf
 Beware: it contains regular expressions to parse Rust code which is used to generate a C header on the fly to rename symbols and generates Rust macros that are used in the library to generate even more Rust code.
 * The library can serialize expressions in a an LLVM IR-like language quite efficiently and the resulting organisation of concolic tracers (especially regarding composability) is, in my humble opinion, profound and elegant.
 I attempted to document the basic technical decisions and design in the module documentation, but I think a more long-form blog post would be in order.
+
+## Personal Conclusion
+I am very happy with how this GSoC project turned out.
+If I had to come up with some learnings from this whole project for me personally, it would be the following:
+
+* Communicate early and clearly. Sometimes, just formulating a problem for a discord message or github issue leads to the solution.
+* Automated (integration) tests are key to solving difficult problems:
+the ability to continously verify everything still works as expected enabled sweeping refactors that ultimately pushed this project from good to great (IMHO).
+* Documentation is not a nice-to-have, but a requirement. Documentation is also for the writer, not just the reader.
+For me personally, it uncovered rough edges and code that I had simply forgotten to update or remove in a previous refactor. 
+It makes it (sometimes painfully) obvious how (re-)usable an abstraction or piece of code _really_ is.
+
+I am very glad I had [@domenukk](https://github.com/domenukk) and [@andreafioraldi](https://github.com/andreafioraldi) mentor me.
+Working with them was refreshingly productive and they were there to support me whenever I needed them, regardless of problem difficulty.
+Also: they are just [dufte](https://www.urbandictionary.com/define.php?term=dufte) dudes :)
