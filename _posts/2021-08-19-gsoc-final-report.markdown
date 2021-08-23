@@ -23,7 +23,7 @@ The work includes, on a technical level:
 * [A simple LibAFL Mutational Stage](https://docs.rs/libafl/0.6.0//libafl/stages/concolic/struct.SimpleConcolicMutationalStage.html) that uses concolic traces to increase coverage in the target program, similar to [SymCC's 'Simple' runtime](https://github.com/eurecom-s3/symcc/blob/master/docs/Backends.txt).
 * [A very basic hybrid fuzzer](https://github.com/AFLplusplus/LibAFL/tree/main/fuzzers/libfuzzer_stb_image_concolic#readme) based on LibAFL that uses all of the components from this project.
 * [A smoke test](https://github.com/AFLplusplus/LibAFL/tree/main/libafl_concolic/test#readme) that ensure that the integration between SymCC and LibAFL works properly that [runs on CI](https://github.com/AFLplusplus/LibAFL/runs/3359607830?check_suite_focus=true#step:6:1).
-* A new chapter in the [LibAFL book](https://aflplus.plus/libafl-book/) that introduces this project's work to LibAFL users.
+* [A new chapter](https://aflplus.plus/libafl-book/advanced_features/concolic/concolic.html) in the [LibAFL book](https://aflplus.plus/libafl-book/) that introduces this project's work to LibAFL users.
 * All code is thoroughly documented and documentation is available via [docs.rs](https://docs.rs).
 
 Perhaps surprisingly, all initial goals were met (and exceeded) and, so far, there is no outstanding/future work planned.
