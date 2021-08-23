@@ -128,7 +128,7 @@ Here is a brief overview of what I think these findings are:
 It is [rather complicated](https://github.com/AFLplusplus/LibAFL/blob/main/libafl_concolic/symcc_runtime/build.rs), but it worked nicely for integrating SymCC's runtime.
 Beware: it contains regular expressions to parse Rust code which is used to generate a C header on the fly to rename symbols and generates Rust macros that are used in the library to generate even more Rust code.
 * The library can serialize expressions in a an LLVM IR-like language quite efficiently and the resulting organization of concolic tracers (especially regarding composability) is, in my humble opinion, profound and elegant.
-I attempted to document the basic technical decisions and design in the module documentation, but I think a more long-form blog post would be in order.
+I attempted to document the basic technical decisions and design in the [module documentation](https://docs.rs/libafl/0.6/libafl/observers/concolic/serialization_format/index.html), but I think a more long-form blog post would be in order.
 
 ## Personal Conclusion
 I am very happy with how this GSoC project turned out.
