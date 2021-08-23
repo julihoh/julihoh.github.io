@@ -118,3 +118,13 @@ This is an active field of research ranging from effective filtering of constrai
 The current state of the project already contains some filtering based on [QSym hybrid fuzzer](https://github.com/sslab-gatech/qsym), but it would be interesting to see whether more of the work in academia could be made usable by a wider range of users through LibAFL.
 In general, the currently implemented solver is not very effective without tuning to particular targets.
 
+### Documentation of Learnings
+During the project, I had some findings that could be interesting for others. 
+These findings should be documented somehow.
+Here is a brief overview of what I think these findings are:
+
+* I managed to find a low-maintenance solution for re-exporting symbols from a C library in a Rust shared library (see [#2771](https://github.com/rust-lang/rfcs/issues/2771)).
+It is [rather complicated](https://github.com/AFLplusplus/LibAFL/blob/main/libafl_concolic/symcc_runtime/build.rs), but it worked nicely for integrating SymCC's runtime.
+Beware: it contains regular expressions to parse Rust code which is used to generate a C header on the fly to rename symbols and generates Rust macros that are used in the library to generate even more Rust code.
+* The library can serialize expressions in a an LLVM IR-like language quite efficiently and the resulting organisation of concolic tracers (especially regarding composability) is, in my humble opinion, profound and elegant.
+I attempted to document the basic technical decisions and design in the module documentation, but I think a more long-form blog post would be in order.
